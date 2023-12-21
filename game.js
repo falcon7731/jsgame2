@@ -38,12 +38,12 @@ function create() {
   
     // Register the device orientation event
     if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientationabsolute', handleOrientation, false);
+      window.addEventListener('deviceorientation', handleOrientation, false);
     }
   }
   
   function handleOrientation(event) {
-    const rotation = event.alpha; // Use alpha for rotation angle in degrees
+    const rotation = event.alpha || 0; // Use alpha for rotation angle in degrees
   
     const radius = window.innerWidth / 4;
   
