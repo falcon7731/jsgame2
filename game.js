@@ -26,13 +26,32 @@ function create() {
     'background'
   );
     // Create a small circle at the bottom of the screen
-    circle = this.add.circle(
-      window.innerWidth / 2,
-      window.innerHeight - 30,
-      10,
-      0xff0000
-    );
+  circle = this.add.circle(
+    window.innerWidth / 2,
+    window.innerHeight - 30,
+    10,
+    0xff0000
+  );
+
+  // Set the circle as interactive to respond to user input
+  circle.setInteractive();
+
+  // Register the device orientation event
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', handleOrientation, false);
+  }
+}
   
+function handleOrientation(event) {
+  const rotation = event.gamma; // Use gamma for rotation angle in degrees
+
+  const radius = window.innerWidth / 4;
+
+  const x = window.innerWidth / 2 + radius * Math.sin((rotation * Math.PI) / 180);
+  const y = window.innerHeight - 30 - radius * Math.cos((rotation * Math.PI) / 180);
+
+  circle.setPosition(x, y);
+}
     // Set the circle as interactive to respond to user input
     circle.setInteractive();
 
@@ -53,4 +72,4 @@ function create() {
     }
   }
  
-}
+
